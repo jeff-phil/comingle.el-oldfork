@@ -145,6 +145,7 @@
          (CancelRequest .
              ,(rx bol "comingle/" (or (seq "metadata/" (* anychar)) "request_id")  eol))
          (GetAuthToken)
+         (AddTrackedWorkspace)
          (RegisterUser .
              ,(rx bol "comingle/firebase_id_token" eol))
          (AcceptCompletion .
@@ -1000,9 +1001,10 @@ If `comingle-api-enabled' returns nil, does nothing.
                   comingle-chat-url)
     ;; Add current project directory to chat when started
     ;;  TODO: projectile support?
-    (comingle-request 'AddTrackedWorkspace
+    (comingle-request-with-body 'AddTrackedWorkspace
                                 state
-                                '((workspace . (project-root (project-current))))
+                                `((workspace . ,(project-root (project-current))))
+                                (comingle-state-alive-tracker state)
                                 (lambda (res)
                                   (when res
                                     (error "AddTrackedWorkspace failed")))))
