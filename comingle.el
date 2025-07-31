@@ -41,7 +41,7 @@
 
 ;;; Code:
 
-(defvar comingle-latest-local-server-version "1.12.0")
+(defvar comingle-latest-local-server-version "1.46.3")
 
 ;; (require 'url-parse)
 (autoload 'url-parse-make-urlobj "url-parse")
@@ -130,7 +130,7 @@
             nil)))
 
 (defconst comingle-apis
-    '(GetCompletions GetProcesses Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))
+    '(GetCompletions AddTrackedWorkspace GetProcesses Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))
 
 (comingle-def comingle-api-enabled () t)
 
@@ -395,7 +395,10 @@ If you set `comingle-port', it will be used instead and no process will be creat
          "--manager_dir" ,(comingle-state-manager-directory state)
          "--register_user_url" ,(comingle-get-config 'comingle-register-user-url api state)
          ,@(if (comingle-get-config 'comingle-enterprise api state) '("--enterprise_mode"))
-         ,@(if (comingle-get-config 'comingle-chat api state) '("--enable_chat_web_server" "--enable_chat_client"))
+         ,@(if (comingle-get-config 'comingle-chat api state)
+               '("--enable_local_search" "--enable_index_service"
+                 "--search_max_workspace_file_count" "5000"
+                 "--enable_chat_web_server" "--enable_chat_client"))
          "--portal_url" ,(comingle-get-config 'comingle-portal-url api state)))
 
 (defvar comingle-state (comingle-state-make :name "default"))
@@ -980,10 +983,13 @@ If `comingle-api-enabled' returns nil, does nothing.
                                  (error "chat client port is not set yet, please wait")))
            "&ide_name=" comingle/metadata/ide_name
            "&ide_version=" comingle/metadata/ide_version
-           "&app_name=comingle.el"
+           "&app_name=Emacs"
            "&extension_name=comingle.el"
            "&extension_version=" comingle/metadata/extension_version
            "&ide_telemetry_enabled=true"
+           "&has_index_service=true"
+           "&spen_file_pointer_enabled=true"
+           "&diff_view_enabled=true"
            "&locale=en_US"))
     (start-process "comingle chat" nil
                   (pcase system-type
@@ -991,7 +997,15 @@ If `comingle-api-enabled' returns nil, does nothing.
                       ('gnu/linux "xdg-open")
                       ('darwin "open")
                       (_ (error "unable to automatically determine your system, or your system is not supported yet. Please file an issue on github.")))
-                  comingle-chat-url))
+                  comingle-chat-url)
+    ;;  TODO: This is not right yet
+    (comingle-request 'AddTrackedWorkspace state '(("workspace" . (project-root (project-current))))
+                      (lambda (res)
+                        (if (listp res)
+                            (setf (comingle-state-chat-client-port state) (alist-get 'chatClientPort res)
+                                  (comingle-state-chat-webserver-port state) (alist-get 'chatWebServerPort res))
+                          (error "cannot get chat ports from res"))))
+    )
 
 (defun comingle-reset (&optional state)
     (interactive)
