@@ -11,9 +11,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Get version from file
         id: version
-        run: echo ::set-output name=version::$(grep -oP '(?<=comingle-latest-local-server-version ")[^"]+' comingle.el)
+        run: |
+          VERSION=$(grep -oP '(?<=comingle-latest-local-server-version ")[^"]+' comingle.el)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Check if tag exists
         id: add_tag
         run: |
