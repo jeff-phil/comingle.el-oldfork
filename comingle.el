@@ -213,110 +213,114 @@
 (comingle-def comingle/document/editor_language () (symbol-name major-mode))
 
 (defvar comingle-language-alist
-    '(
-         (nil . 0)
-         (c-mode . 1)
-         (c-ts-mode . 1)
-         (clojure-mode . 2)
-         (clojurec-mode . 2)
-         (clojurescript-mode . 2)
-         (coffee-mode . 3)
-         (cc-mode . 4)
-         (c++-mode . 4)
-         (c++-ts-mode . 4)
-         (csharp-mode . 5)
-         (csharp-tree-sitter-mode . 5)
-         (csharp-ts-mode . 5)
-         (css-mode . 6)
-         (css-ts-mode . 6)
-         (cuda-mode . 7)
-         (dockerfile-mode . 8)
-         (dockerfile-ts-mode . 8)
-         (go-dot-mod-mode . 9)
-         (go-mod-ts-mode . 9)
-         (go-mode . 9)
-         (go-ts-mode . 9)
-         (groovy-mode . 10)
-         (haskell-mode . 12)
-         (terraform-mode . 13)
-         (html-mode . 14)
-         (sgml-mode . 14)
-         (mhtml-mode . 14)
-         (java-mode . 16)
-         (java-ts-mode . 16)
-         (jdee-mode . 16)
-         (ecmascript-mode . 17)
-         (javascript-mode . 17)
-         (js-mode . 17)
-         (js2-mode . 17)
-         (js-ts-mode . 17)
-         (rjsx-mode . 17)
-         (json-mode . 18)
-         (json-ts-mode . 18)
-         (julia-mode . 19)
-         (ess-julia-mode . 19)
-         (kotlin-mode . 20)
-         (kotlin-ts-mode . 20)
-         (latex-mode . 21)
-         (less-mode . 22)
-         (less-css-mode . 22)
-         (lua-mode . 23)
-         (lsp--render-markdown . 25)
-         (markdown-mode . 25)
-         (gfm-mode . 25)
-         (objc-mode . 26)
-         (perl-mode . 28)
-         (cperl-mode . 28)
-         (php-mode . 29)
-         (php-ts-mode . 29)
-         (text-mode . 30)
-         (python-mode . 33)
-         (python-ts-mode . 33)
-         (cython-mode . 33)
-         (ess-r-mode . 34)
-         (ruby-mode . 35)
-         (enh-ruby-mode . 35)
-         (ruby-ts-mode . 35)
-         (rust-mode . 36)
-         (rust-ts-mode . 36)
-         (rustic-mode . 36)
-         (sass-mode . 37)
-         (ssass-mode . 37)
-         (scala-mode . 38)
-         (scss-mode . 39)
-         (sh-mode . 40)
-         (ebuild-mode . 40)
-         (pkgbuild-mode . 40)
-         (sql-mode . 41)
-         (swift-mode . 43)
-         (tsx-mode . 44)
-         (tsx-ts-mode . 44)
-         (ts-mode . 45)
-         (typescript-mode . 45)
-         (typescript-ts-mode . 45)
-         (nxml-mode . 48)
-         (xml-mode . 48)
-         (yaml-mode . 50)
-         (yaml-ts-mode . 50)
-         (conf-toml-mode . 52)
-         (toml-ts-mode . 52)
-         (dart-mode . 53)
-         (caml-mode . 55)
-         (tuareg-mode . 55)
-         (cmake-mode . 56)
-         (cmake-ts-mode . 56)
-         (pascal-mode . 57)
-         (elixir-mode . 58)
-         (elixir-ts-mode . 58)
-         (heex-ts-mode . 58)
-         (fsharp-mode . 59)
-         (lisp-data-mode . 60)))
+  '(
+    (nil . 0)
+    (c-mode . 1)
+    (c-ts-mode . 1)
+    (clojure-mode . 2)
+    (clojurec-mode . 2)
+    (clojurescript-mode . 2)
+    (coffee-mode . 3)
+    (cc-mode . 4)
+    (c++-mode . 4)
+    (c++-ts-mode . 4)
+    (csharp-mode . 5)
+    (csharp-tree-sitter-mode . 5)
+    (csharp-ts-mode . 5)
+    (css-mode . 6)
+    (css-ts-mode . 6)
+    (cuda-mode . 7)
+    (dockerfile-mode . 8)
+    (dockerfile-ts-mode . 8)
+    (go-dot-mod-mode . 9)
+    (go-mod-ts-mode . 9)
+    (go-mode . 9)
+    (go-ts-mode . 9)
+    (groovy-mode . 10)
+    (haskell-mode . 12)
+    (terraform-mode . 13)
+    (html-mode . 14)
+    (sgml-mode . 14)
+    (mhtml-mode . 14)
+    (java-mode . 16)
+    (java-ts-mode . 16)
+    (jdee-mode . 16)
+    (ecmascript-mode . 17)
+    (javascript-mode . 17)
+    (js-mode . 17)
+    (js2-mode . 17)
+    (js-ts-mode . 17)
+    (rjsx-mode . 17)
+    (json-mode . 18)
+    (json-ts-mode . 18)
+    (julia-mode . 19)
+    (ess-julia-mode . 19)
+    (kotlin-mode . 20)
+    (kotlin-ts-mode . 20)
+    (latex-mode . 21)
+    (less-mode . 22)
+    (less-css-mode . 22)
+    (lua-mode . 23)
+    (lsp--render-markdown . 25)
+    (markdown-mode . 25)
+    (gfm-mode . 25)
+    (objc-mode . 26)
+    (perl-mode . 28)
+    (cperl-mode . 28)
+    (php-mode . 29)
+    (php-ts-mode . 29)
+    (text-mode . 30)
+    (python-mode . 33)
+    (python-ts-mode . 33)
+    (cython-mode . 33)
+    (ess-r-mode . 34)
+    (ruby-mode . 35)
+    (enh-ruby-mode . 35)
+    (ruby-ts-mode . 35)
+    (rust-mode . 36)
+    (rust-ts-mode . 36)
+    (rustic-mode . 36)
+    (sass-mode . 37)
+    (ssass-mode . 37)
+    (scala-mode . 38)
+    (scss-mode . 39)
+    (sh-mode . 40)
+    (ebuild-mode . 40)
+    (pkgbuild-mode . 40)
+    (sql-mode . 41)
+    (swift-mode . 43)
+    (tsx-mode . 44)
+    (tsx-ts-mode . 44)
+    (ts-mode . 45)
+    (typescript-mode . 45)
+    (typescript-ts-mode . 45)
+    (nxml-mode . 48)
+    (xml-mode . 48)
+    (yaml-mode . 50)
+    (yaml-ts-mode . 50)
+    (svelte-mode . 51)
+    (svelte-ts-mode . 51)
+    (conf-toml-mode . 52)
+    (toml-ts-mode . 52)
+    (dart-mode . 53)
+    (caml-mode . 55)
+    (tuareg-mode . 55)
+    (cmake-mode . 56)
+    (cmake-ts-mode . 56)
+    (pascal-mode . 57)
+    (elixir-mode . 58)
+    (elixir-ts-mode . 58)
+    (heex-ts-mode . 58)
+    (fsharp-mode . 59)
+    (lisp-mode . 60)
+    (lisp-data-mode . 60)
+    (emacs-lisp-mode . 71)))
 
 (comingle-def comingle/document/language ()
-    (let ((mode major-mode))
-        (while (not (alist-get mode comingle-language-alist))
-            (setq mode (get mode 'derived-mode-parent)))
-        (alist-get mode comingle-language-alist)))
+              (let ((mode major-mode))
+                (while (not (alist-get mode comingle-language-alist))
+                  (setq mode (get mode 'derived-mode-parent)))
+                (alist-get mode comingle-language-alist)))
 
 (comingle-def comingle/document/line_ending "\n"
     "according to https://www.reddit.com/r/emacs/comments/5b7o9r/elisp_how_to_concat_newline_into_string_regarding/
@@ -562,6 +566,8 @@ If you set `comingle-port', it will be used instead and no process will be creat
 
 (defvar comingle-overlay nil
   "The active comingle completion overlay.")
+(defvar comingle-keymap-overlay nil
+  "Keymap completions for comingle overlay.")
 (defvar comingle-current-completions nil
   "A list of the current completion strings.")
 (defvar comingle-current-completion-metadata nil
@@ -1162,11 +1168,19 @@ If `comingle-api-enabled' returns nil, does nothing.
   (interactive)
   (when comingle-overlay
     (delete-overlay comingle-overlay)
+    (delete-overlay comingle-keymap-overlay)
     (setq comingle-overlay nil))
   (setq comingle-current-completions nil
         comingle-current-completion-metadata nil
         comingle-current-completion-index 0
         comingle-completion-info nil))
+
+(defun comingle-get-keymap-overlay ()
+  (unless (overlayp comingle-keymap-overlay)
+    (setq comingle-keymap-overlay (make-overlay 1 1 nil nil t))
+    (overlay-put comingle-keymap-overlay 'keymap comingle-keymap)
+    (overlay-put comingle-keymap-overlay 'priority 101))
+  comingle-keymap-overlay)
 
 (defun comingle-show-completion (&optional index)
   "Show the comingle completion at INDEX."
@@ -1186,6 +1200,7 @@ If `comingle-api-enabled' returns nil, does nothing.
         (let ((suffix (substring completion-text (length prefix))))
           (when (> (length suffix) 0)
             (setq comingle-overlay (make-overlay end end))
+            (overlay-put comingle-overlay 'keymap (comingle-get-keymap-overlay))
             (overlay-put comingle-overlay 'after-string
                          (propertize suffix 'face 'comingle-ghost-text-face))
             (overlay-put comingle-overlay 'comingle t)))))))
@@ -1238,8 +1253,69 @@ If `comingle-api-enabled' returns nil, does nothing.
       (insert completion-text)
       (when completion-id
         (comingle-request 'AcceptCompletion comingle-state
-                         `((comingle/completion_id . ,completion-id))
-                         #'ignore)))))
+                          `((comingle/completion_id . ,completion-id))
+                          #'ignore)))))
+
+(defun comingle--accept-partial (split-fn)
+  "Accept a part of a completion, given a splitting function (word, or line).
+   `SPLIT-FN' takes the displayed suffix text and returns a cons cell
+   of `(PART-TO-INSERT . REST-OF-SUFFIX)'."
+  (when comingle-overlay
+    (let* ((overlay-start (overlay-start comingle-overlay))
+           (suffix-text (substring-no-properties (overlay-get comingle-overlay
+                                                              'after-string)))
+           (parts (funcall split-fn suffix-text)))
+      (when parts
+        (let ((to-insert (car parts))
+              (remaining-suffix (cdr parts)))
+
+          (goto-char overlay-start)
+          (insert to-insert)
+          (setf (plist-get comingle-completion-info :end) (point))
+
+          (if (or (null remaining-suffix) (string-empty-p remaining-suffix))
+              (comingle-clear-completion)
+            ;; Part of the completion was accepted. The full completion text in
+            ;; `comingle-current-completions` is still good, and `comingle-completion-info`
+            ;; now has an updated :end. `comingle-show-completion` will re-calc the new
+            ;; prefix and suffix display the remaining part.
+            (comingle-show-completion comingle-current-completion-index)))))))
+
+(defun comingle-accept-completion-word ()
+  "Accept the next word of the comingle completion."
+  (interactive)
+  (comingle--accept-partial
+   (lambda (text)
+     (if (string-match "\\`\\s-*\\S-+" text)
+         (cons (match-string 0 text) (substring text (match-end 0)))
+       ;; If no word found (e.g., only whitespace), accept that whitespace.
+       (if (string-match "\\`\\s-+\\'" text)
+           (cons text "")
+         nil)))))
+
+(defun comingle-accept-completion-character ()
+  "Accept the next character of the comingle completion."
+  (interactive)
+  (comingle--accept-partial
+   (lambda (text)
+     (if (string-match "\\`\\s-*\\S+" text)
+         (cons (match-string 0 text) (substring text (match-end 0)))
+       ;; If no character found (e.g., only whitespace), accept that whitespace.
+       (if (string-match "\\`\\s-+\\'" text)
+           (cons text "")
+         nil)))))
+
+(defun comingle-accept-completion-line ()
+  "Accept the first line of the comingle completion."
+  (interactive)
+  (comingle--accept-partial
+   (lambda (text)
+     (let ((newline-pos (string-search "\n" text)))
+       (if newline-pos
+           (cons (substring text 0 (1+ newline-pos))
+                 (substring text (1+ newline-pos)))
+         ;; No newline, so whole text is one line.
+         (cons text ""))))))
 
 (defun comingle-next-completion ()
   "Cycle to the next completion."
@@ -1253,13 +1329,8 @@ If `comingle-api-enabled' returns nil, does nothing.
   (when comingle-current-completions
     (comingle-show-completion (1- comingle-current-completion-index))))
 
-(defvar comingle-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "M-<return>") #'comingle-accept-completion)
-    (define-key map (kbd "M-n") #'comingle-next-completion)
-    (define-key map (kbd "M-p") #'comingle-prev-completion)
-    map)
-  "Keymap for `comingle-mode`.")
+(defconst comingle-keymap (make-sparse-keymap)
+  "Keymap for Comingle completion overlay.")
 
 (defun comingle-post-command-hook ()
   "Hook for `post-command-hook` to trigger completions."
@@ -1272,6 +1343,8 @@ If `comingle-api-enabled' returns nil, does nothing.
   "Hook for `pre-command-hook` to clear completions."
   (when (and comingle-overlay (overlay-buffer comingle-overlay))
     (unless (memq this-command '(comingle-accept-completion
+                                 comingle-accept-completion-word
+                                 comingle-accept-completion-line
                                  comingle-next-completion
                                  comingle-prev-completion
                                  scroll-up-command
@@ -1283,7 +1356,7 @@ If `comingle-api-enabled' returns nil, does nothing.
   "Toggle comingle's in-buffer completion UI."
   :init-value nil
   :lighter " comingle"
-  :keymap comingle-mode-map
+  :keymap comingle-keymap
   (if comingle-mode
       (progn
         (add-hook 'post-command-hook #'comingle-post-command-hook nil t)

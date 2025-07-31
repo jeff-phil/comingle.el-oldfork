@@ -14,48 +14,60 @@ The default key bindings are:
 
 Different from original, you must enable `comingle-mode` to start getting completions.  And still need to `comingle-init` prior, in order to get login, etc.
 
-This is my init.el settings for this package that takes care of doing init work, as well as automatically starting `comingle-mode` in `prog-mode-hook` if enabled through `my/comingle-is-enabled` variable 
+This is my init.el settings for this package that takes care of doing init work, as well as automatically starting `comingle-mode` in `prog-mode-hook` if enabled through `my/comingle-is-enabled` variable
 
 ```emacs-lisp
 (defvar my/comingle-is-enabled t)
-
 (use-package comingle
   :after (pinentry) ;; for api-key in auth-source
   ;;:ensure t
   ;;:straight '(:type git :host github :repo "jeff-phil/comingle.el")
   ;;:vc (:fetcher github :repo "jeff-phil/comingle.el" :rev "main")
-  :load-path "~/devel/emacs/comingle.el"
-  :commands (my/comingle-toggle)
+  :diminish "🧠"
+  :load-path "/Users/jeffrey/devel/emacs/comingle.el/"
+  :commands (my/comingle-toggle comingle-mode)
   :bind
-  (("H-C" . 'my/comingle-toggle)
-   ("C-c p C" . comingle-chat-open)) ;;  new chat option from PR
-  :hook (prog-mode . (lambda ()
-                       (when (bound-and-true-p my/comingle-is-enabled)
-                         (comingle-mode))))
+  (("s-<return>" . comingle-accept-completion)
+   ("S-<return>" . comingle-accept-completion-line)
+   ("M-<return>" . comingle-accept-completion-word)
+   ("C-<return>" . comingle-accept-completion-character)
+   ("H-j" . comingle-next-completion)
+   ("H-k" . comingle-prev-completion)
+   ("H-C" . 'my/comingle-toggle)
+   ("C-c p c" . comingle-chat-open)) ;;  launch chat
+  :hook (prog-mode . my/try-run-comingle-mode)
   :init
+  ;; optionally set a timer, which might speed up things as the
+  ;; comingle local language server takes ~0.2s to start up
   (when (bound-and-true-p my/comingle-is-enabled)
-    ;; optionally set a timer, which might speed up things as the
-    ;; comingle local language server takes ~0.2s to start up
     (add-hook 'emacs-startup-hook
               (lambda ()
                 (run-with-timer
-                 0.2
+                 0.1
                  nil
                  (lambda ()
-                   (my/comingle-toggle))))))
+                   (when (comingle-state-proc comingle-state)
+                     ;; temporarily disable comingle, so that we can init
+                     (let ((my/comingle-is-enabled nil))
+                       (my/comingle-toggle))))))))
   :config
+  (defun my/try-run-comingle-mode ()
+    "Use in hook, like prog-mode-hook, so that can test first if comingle is enabled."
+    (when (bound-and-true-p my/comingle-is-enabled)
+      (comingle-mode)))
+
   (defun my/comingle-toggle (&optional state)
     "Toggle comingle's enabled state."
     (interactive)
     (let ((current-state (or state comingle-state)))
       (cond
-       ;; First condition: Is comingle currently running?
-       ((and current-state (comingle-state-proc current-state))
-        ;; -> Then, disable it. No `progn` needed.
-        (comingle-reset)
-        (message "Comingle disabled")
-        (setq my/comingle-is-enabled nil))
-
+       ;; First condition: Is comingle currently enabled?
+       (my/comingle-is-enabled
+         (when (and current-state (comingle-state-proc current-state))
+           ;; -> Then, disable it. No `progn` needed.
+           (comingle-reset))
+        (setq my/comingle-is-enabled nil)
+        (message "Comingle disabled"))
        ;; if you don't want to use customize to save the api-key
        (t (setopt comingle/metadata/api_key
                   `,(auth-source-pass-get 'secret "ai/api_key@codeium.com"))
@@ -63,10 +75,8 @@ This is my init.el settings for this package that takes care of doing init work,
           (when current-state
             (comingle-reset))
           (comingle-init)
-          (message "Comingle enabled")
-          (setq my/comingle-is-enabled t)))))
-
-  (add-to-list 'comingle-language-alist '(emacs-lisp-mode . 60))
+          (setq my/comingle-is-enabled t)
+          (message "Comingle enabled")))))
 
   (setq use-dialog-box nil) ;; do not use popup boxes
 
