@@ -1,20 +1,17 @@
 (Co)mingling of Codeium for Emacs with Overlays
 
-A fork of [codeium.el](https://github.com/Exafunction/codeium.el "codeium.el").  Please review that site it for install, usage, etc. If you think there is a bug with this implementation, feel free to send here.
+A fork of [codeium.el](https://github.com/Exafunction/codeium.el "codeium.el").  Please review that site it for original install, usage, etc. If you think there is a bug with this implementation, feel free to send here.
 
-This version replaces the Completion At Point Functions (CAPF) for Codeium served completions, with using overlays to present the completions.  This allows normal CAPF to be used for other completion-at-point routines from Corfu, Company, etc. while still seeing the inline completions with this mode enabled.
+This version *replaces* the Completion At Point Functions (CAPF) for Codeium served completions, with using overlays to present the completions.  This allows normal CAPF to be used for other completion-at-point routines from Corfu, Company, etc. while still seeing and being able to accept the inline completions with this mode enabled.
 
-This also has [codeium.el PR #124](https://github.com/Exafunction/codeium.el/pull/124) included.
+The also has [codeium.el PR #124](https://github.com/Exafunction/codeium.el/pull/124) included. And additionally added pushing of current `project` root directory to the chat workspace.
 
-The default key bindings are:
-
-  * `M-n`   comingle-next-completion
-  * `M-p`   comingle-previous-completion
-  * `M-<return>` comingle-accept-completion
+Lastly, the local Codeium server version has been updated, since had not been updated for almost 1 year, at the time of this writing.
 
 Different from original, you must enable `comingle-mode` to start getting completions.  And still need to `comingle-init` prior, in order to get login, etc.
 
-This is my init.el settings for this package that takes care of doing init work, as well as automatically starting `comingle-mode` in `prog-mode-hook` if enabled through `my/comingle-is-enabled` variable
+This is my init.el settings for this package that takes care of doing init work, as well as automatically starting `comingle-mode` in `prog-mode-hook` if enabled through `my/comingle-is-enabled` variable:
+
 
 ```emacs-lisp
 (defvar my/comingle-is-enabled t)
