@@ -998,14 +998,14 @@ If `comingle-api-enabled' returns nil, does nothing.
                       ('darwin "open")
                       (_ (error "unable to automatically determine your system, or your system is not supported yet. Please file an issue on github.")))
                   comingle-chat-url)
-    ;;  TODO: This is not right yet
-    (comingle-request 'AddTrackedWorkspace state '(("workspace" . (project-root (project-current))))
-                      (lambda (res)
-                        (if (listp res)
-                            (setf (comingle-state-chat-client-port state) (alist-get 'chatClientPort res)
-                                  (comingle-state-chat-webserver-port state) (alist-get 'chatWebServerPort res))
-                          (error "cannot get chat ports from res"))))
-    )
+    ;; Add current project directory to chat when started
+    ;;  TODO: projectile support?
+    (comingle-request 'AddTrackedWorkspace
+                                state
+                                '((workspace . (project-root (project-current))))
+                                (lambda (res)
+                                  (when res
+                                    (error "AddTrackedWorkspace failed")))))
 
 (defun comingle-reset (&optional state)
     (interactive)
