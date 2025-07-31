@@ -86,13 +86,6 @@ This is my init.el settings for this package that takes care of doing init work,
   ;; alternatively for a more extensive mode-line
   ;; (add-to-list 'mode-line-format '(-50 "" comingle-mode-line) t)
 
-  ;; use M-x comingle-diagnose to see apis/fields that would be sent
-  ;; to the local language server
-  (setq comingle-api-enabled
-        (lambda (api)
-          (memq api '(GetCompletions GetProcesses GetHeartbeat CancelRequest GetAuthToken
-                                     RegisterUser auth-redirect AcceptCompletion))))
-
   ;; You can overwrite all the comingle configs!
   ;; for example, we recommend limiting the string sent to comingle for better perf
   (defun my/comingle/document/text ()
